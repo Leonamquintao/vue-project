@@ -16,6 +16,13 @@
 
     <hr>
     <p v-on:mousemove="updateCoordenates($event)">Coordenates: {{ x }} / {{ y }}</p>
+
+    <hr>
+    <input type="text" placeholder="click enter..." v-on:keyup.enter="alertMe()" v-model="alertText">
+
+    <hr>
+    <input type="text" v-model="name">
+    <p>{{ name }}</p>
   </div>
 </template>
 
@@ -30,7 +37,8 @@
         counter: 0,
         x: 0,
         y: 0,
-
+        alertText: '',
+        name: 'Leonam Quintão',
       }
     },
     methods: {
@@ -49,6 +57,9 @@
       updateCoordenates(event) {
         this.x = event.clientX;
         this.y = event.clientY;
+      },
+      alertMe() {
+        alert('you hit enter! '+ this.alertText);
       }
     }
   }
