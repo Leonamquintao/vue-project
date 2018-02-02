@@ -23,6 +23,15 @@
     <hr>
     <input type="text" v-model="name">
     <p>{{ name }}</p>
+
+    <hr>
+    <p>Computed | Methods</p>
+    <button v-on:click="seccounter++">Add</button>
+    <button v-on:click="seccounter--">Remove</button>
+    <button v-on:click="secondCounter++">Aumentar segundo</button>
+    <p>Counter: {{ seccounter }} | {{ secondCounter }}</p>
+    <p>Result: {{ result() }} | {{ output }}</p>
+
   </div>
 </template>
 
@@ -35,10 +44,25 @@
         link: 'http://google.com',
         finishedLink: '<a href="http://google.com">Google</a>',
         counter: 0,
+        seccounter: 0,
+        secondCounter: 0,
         x: 0,
         y: 0,
         alertText: '',
         name: 'Leonam Quintão',
+      }
+    },
+    computed: {
+      output() {
+        return this.seccounter > 5 ? 'Maior que 5' : 'Menor que 5';
+      }
+    },
+    watch: {
+      counter: function(value) {
+        if(value > 10) {
+          this.counter = 0;
+          alert('chega velho!!!');
+        }
       }
     },
     methods: {
@@ -60,6 +84,9 @@
       },
       alertMe() {
         alert('you hit enter! '+ this.alertText);
+      },
+      result() {
+        return this.seccounter > 5 ? 'Maior que 5' : 'Menor que 5';
       }
     }
   }
