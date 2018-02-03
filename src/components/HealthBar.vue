@@ -24,6 +24,8 @@ export default {
     health: function() {
       if(this.health < 50) {
         this.danger = true
+      } else {
+        this.danger = false
       }
     }
   }

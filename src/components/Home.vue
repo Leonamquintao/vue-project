@@ -47,20 +47,46 @@
 
     methods: {
       hit() {
-        this.enemyHealth = this.enemyHealth-10;
+        let damage = Math.floor(Math.random() * 10)+1;
+        this.enemyHealth = this.enemyHealth - damage;
+        this.enemyStruggle(damage);
       },
       heal() {
-        if(this.health < 100) {
-          this.health = this.health+10
-        } else {
-          alert('energy full!!');
+        let cure = Math.floor(Math.random() * 10)+1;
+        this.health = this.health + cure;
+        if(this.health > 100) { this.health = 100; }
+        this.enemyStruggle(0);
+      },
+      defense() {
+
+      },
+      run() {
+
+      },
+      enemyStruggle(myDamage) {
+
+        let rand = Math.floor(Math.random() * 3)+1;
+        let action = Math.floor(Math.random() * 10)+1;
+
+        console.log('enemy rand ', rand)
+        console.log('enemy action ', action)
+
+        switch (rand) {
+          case 1:
+            this.health = this.health - action;
+            break;
+          case 2:
+            this.enemyHealth = this.enemyHealth + action;
+            if(this.enemyHealth > 100) { this.enemyHealth = 100; }
+            break;
+          case 3:
+            this.enemyHealth = (this.enemyHealth + myDamage)-1
         }
       }
-    }
+    },
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .home {
   margin: auto;
