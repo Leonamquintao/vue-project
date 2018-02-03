@@ -22,9 +22,11 @@
 export default {
   name: "counter-component",
   data () {
-    counter: 0,
-    seccounter: 0,
-    secondCounter: 0,
+    return {
+      counter: 0,
+      seccounter: 0,
+      secondCounter: 0,
+    }
   },
   computed: {
     output() {
