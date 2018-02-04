@@ -20,9 +20,9 @@
 
     <div class="action-buttons">
       <button class="attack" @click="hit()"> attack </button>
-      <button class="defense"> Defense </button>
+      <button class="defense" @click="defense()"> Defense </button>
       <button class="heal" @click="heal()"> Heal </button>
-      <button class="run"> Run Forest </button>
+      <button class="run" @click="run()"> Run Forest </button>
     </div>
 
   </div>
@@ -59,29 +59,45 @@
       },
       defense() {
 
+        this.enemyStruggle(0).then(function(act) {
+
+          console.log('rand ', act.rand);
+          console.log('action ', act.action);
+          console.log('this.health', this.health);
+
+        })
       },
       run() {
-
+        this.health = 100;
+        this.enemyHealth = 100;
       },
       enemyStruggle(myDamage) {
+        return new Promise((resolve, reject) => {
 
-        let rand = Math.floor(Math.random() * 3)+1;
-        let action = Math.floor(Math.random() * 10)+1;
+          let rand = Math.floor(Math.random() * 3)+1;
+          let action = Math.floor(Math.random() * 10)+1;
 
-        console.log('enemy rand ', rand)
-        console.log('enemy action ', action)
-
-        switch (rand) {
-          case 1:
+          switch (rand) {
+            case 1:
             this.health = this.health - action;
             break;
-          case 2:
+            case 2:
             this.enemyHealth = this.enemyHealth + action;
             if(this.enemyHealth > 100) { this.enemyHealth = 100; }
             break;
-          case 3:
-            this.enemyHealth = (this.enemyHealth + myDamage)-1
-        }
+            case 3:
+            if(myDamage !== 0) {
+              this.enemyHealth = (this.enemyHealth + myDamage)-1;
+            }
+          }
+
+          let enemyAction = {rand: rand, action: action };
+          resolve(enemyAction);
+        });
+
+
+
+
       }
     },
   }
