@@ -19,10 +19,19 @@
     </div>
 
     <div class="action-buttons">
-      <button class="attack" @click="hit()"> attack </button>
-      <button class="defense" @click="defense()"> Defense </button>
-      <button class="heal" @click="heal()"> Heal </button>
-      <button class="run" @click="run()"> Run Forest </button>
+      <button class="attack" @click="hit()" :disabled="end"> attack </button>
+      <button class="defense" @click="defense()" :disabled="end"> Defense </button>
+      <button class="heal" @click="heal()" :disabled="end"> Heal </button>
+      <button class="run" @click="run()" :disabled="end"> Run Forest </button>
+    </div>
+
+    <div class="result">
+      <h1 class="win" v-if="enemyHealth <= 0">you win</h1>
+      <h1 class="lose" v-if="health <= 0">you lose</h1>
+    </div>
+
+    <div class="action-buttons">
+      <button class="play" @click="playAgain()" v-if="end">Play Again</button>
     </div>
 
   </div>
@@ -42,6 +51,7 @@
       return {
         health: 100,
         enemyHealth: 100,
+        end: false,
       }
     },
 
@@ -58,13 +68,10 @@
         this.enemyStruggle(0);
       },
       defense() {
-
-        this.enemyStruggle(0).then(function(act) {
-
-          console.log('rand ', act.rand);
-          console.log('action ', act.action);
-          console.log('this.health', this.health);
-
+        this.enemyStruggle(0).then((act) => {
+          if(act.rand == 1 && act.action !== 0) {
+            this.health = (this.health + act.action)-1;
+          }
         })
       },
       run() {
@@ -94,12 +101,17 @@
           let enemyAction = {rand: rand, action: action };
           resolve(enemyAction);
         });
-
-
-
-
+      },
+      playAgain() {
+        this.health = 100;
+        this.enemyHealth = 100;
+        this.end = false;
       }
     },
+    watch: {
+      health: function (){ if(this.health <= 0) { this.end = true } },
+      enemyHealth: function() { if(this.enemyHealth <= 0) { this.end = true } },
+    }
   }
 </script>
 
@@ -138,9 +150,14 @@
   font-weight: bold;
 }
 
+.result h1 { font-size: 46px; }
+.win { color: #1c50a5; }
+.lose { color: #DC602E; }
+
 .attack { background-color: #05A8AA; }
 .defense { background-color: #B8D5B8; }
 .heal { background-color: #D7B49E; }
 .run { background-color: #DC602E; }
+.play { background-color: #DC602E; }
 
 </style>
