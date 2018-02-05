@@ -31,11 +31,12 @@ export default {
     },
 
     heal() {
-      let cure = Math.floor(Math.random() * 10)+1;
+      let cure = Math.floor(Math.random() * 9)+1;
       this.emitHealth(this.health + cure);
       if(this.health > 100) { this.emitHealth(100); }
       this.enemyStruggle(0);
     },
+
     defense() {
       this.enemyStruggle(0).then((act) => {
         if(act.rand == 1 && act.action !== 0) {
@@ -43,15 +44,17 @@ export default {
         }
       })
     },
+
     run() {
       this.emitHealth(100);
       this.emitEnemyHeath(100);
     },
+
     enemyStruggle(myDamage) {
       return new Promise((resolve, reject) => {
 
         let rand = Math.floor(Math.random() * 3)+1;
-        let action = Math.floor(Math.random() * 10)+1;
+        let action = Math.floor(Math.random() * 9)+1;
 
         switch (rand) {
           case 1:
@@ -68,7 +71,7 @@ export default {
           break;
         }
 
-        let enemyAction = {rand: rand, action: action };
+        let enemyAction = { rand: rand, action: action };
         resolve(enemyAction);
       });
     }
