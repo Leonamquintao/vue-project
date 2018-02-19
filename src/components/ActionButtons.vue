@@ -24,23 +24,22 @@ export default {
     emitEnemyHeath(ehp) { this.$emit('enemyHealth', ehp) },
 
     hit() {
-      let damage = Math.floor(Math.random() * 9)+1;
-      this.emitHealth(this.enemyHealth - damage);
-
+      let damage = Math.floor(Math.random() * 10)+1;
+      this.emitEnemyHeath(this.enemyHealth - damage);
       this.enemyStruggle(damage);
     },
 
     heal() {
-      let cure = Math.floor(Math.random() * 9)+1;
+      let cure = Math.floor(Math.random() * 10)+1;
       this.emitHealth(this.health + cure);
-      if(this.health > 100) { this.emitHealth(100); }
+      this.healEvent(this.health, 1, cure);
       this.enemyStruggle(0);
     },
 
     defense() {
       this.enemyStruggle(0).then((act) => {
         if(act.rand == 1 && act.action !== 0) {
-          this.emitHealth((this.health + act.action)-1);
+          this.emitHealth(this.health-1);
         }
       })
     },
@@ -57,16 +56,15 @@ export default {
         let action = Math.floor(Math.random() * 9)+1;
 
         switch (rand) {
-          case 1:
+          case 1: //attack
             this.emitHealth(this.health - action);
           break;
-          case 2:
-            this.emitEnemyHeath(this.enemyHealth + action);
-          if(this.enemyHealth > 100) { this.emitEnemyHeath(100); }
+          case 2: //heal
+            this.healEvent(this.enemyHealth, 2, action);
           break;
-          case 3:
+          case 3: //defense
             if(myDamage !== 0) {
-              this.emitEnemyHeath((this.enemyHealth + myDamage)-1);
+              this.emitEnemyHeath(this.enemyHealth-1);
             }
           break;
         }
@@ -74,6 +72,23 @@ export default {
         let enemyAction = { rand: rand, action: action };
         resolve(enemyAction);
       });
+    },
+
+    //type 1 = ryu | 2 = sagat
+    healEvent(hp, type, val) {
+      if(type == 2) {
+        if(hp > 100) {
+          this.emitEnemyHeath(100);
+        } else {
+          this.emitEnemyHeath(this.enemyHealth + val);
+        }
+      } else if(type == 1) {
+        if(hp > 100) {
+          this.emitHealth(100);
+        } else {
+          this.emitHealth(this.health + val);
+        }
+      }
     }
   }
 }
