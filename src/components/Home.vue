@@ -80,8 +80,18 @@
 
     },
     watch: {
-      health: function (){ if(this.health <= 0) { this.end = true } },
-      enemyHealth: function() { if(this.enemyHealth <= 0) { this.end = true } },
+      health: function() {
+        if(this.health <= 0) {
+          this.health = 0;
+          this.end = true;
+        }
+      },
+      enemyHealth: function() {
+        if(this.enemyHealth <= 0) {
+          this.enemyHealth = 0;
+          this.end = true;
+        }
+      },
     }
 
   }

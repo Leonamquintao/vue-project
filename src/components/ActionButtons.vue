@@ -30,8 +30,7 @@ export default {
     },
 
     heal() {
-      let cure = Math.floor(Math.random() * 10)+1;
-      this.emitHealth(this.health + cure);
+      let cure = Math.max(Math.floor(Math.random() * 10)+1, 3);
       this.healEvent(this.health, 1, cure);
       this.enemyStruggle(0);
     },
@@ -39,7 +38,7 @@ export default {
     defense() {
       this.enemyStruggle(0).then((act) => {
         if(act.rand == 1 && act.action !== 0) {
-          this.emitHealth(this.health-1);
+          this.emitHealth(this.health - 1);
         }
       })
     },

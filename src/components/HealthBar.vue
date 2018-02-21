@@ -34,6 +34,11 @@ export default {
 
 <style lang="scss" scoped>
 
+.health-bar {
+  background-color: #c1c4c9;
+  border-radius: 4px;
+}
+
 .health {
   width: 300px;
   height: 40px;
