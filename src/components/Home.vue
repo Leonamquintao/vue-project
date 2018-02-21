@@ -19,12 +19,10 @@
     </div>
 
     <template v-if="!end">
-
       <action-buttons
         :health="health" :enemyHealth="enemyHealth"
         @health="emitHealth" @enemyHealth="emitEnemyHeath">
       </action-buttons>
-
     </template>
 
     <div class="result">
@@ -36,6 +34,10 @@
       <button class="play" @click="playAgain()" v-if="end">Play Again</button>
     </div>
 
+    <template v-if="!end">
+      <fight-log></fight-log>
+    </template>
+
   </div>
 </template>
 
@@ -43,12 +45,14 @@
 
   import HealthBar from './HealthBar';
   import ActionButtons from './ActionButtons';
+  import FightLog from './FightLog';
 
   export default {
     name: 'home',
     components: {
       HealthBar,
       ActionButtons,
+      FightLog,
     },
 
     data () {
@@ -79,7 +83,9 @@
       health: function (){ if(this.health <= 0) { this.end = true } },
       enemyHealth: function() { if(this.enemyHealth <= 0) { this.end = true } },
     }
+
   }
+
 </script>
 
 <style scoped>
@@ -102,6 +108,14 @@
   .avatar img{
     width: 120%;
     height: auto;
+  }
+
+  .action-buttons button {
+    width: 150px;
+    height: 40px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
   }
 
   .result h1 { font-size: 46px; }

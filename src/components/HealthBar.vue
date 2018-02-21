@@ -15,7 +15,7 @@
 export default {
   name: "health-bar",
   props: ['health'],
-  data () {
+  data() {
     return{
       danger: false,
     }

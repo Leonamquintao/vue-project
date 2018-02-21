@@ -13,7 +13,7 @@ export default {
   name: "action-buttonsr",
   props: ['health', 'enemyHealth'],
 
-  data (){
+  data() {
     return {
 
     }
@@ -52,17 +52,19 @@ export default {
     enemyStruggle(myDamage) {
       return new Promise((resolve, reject) => {
 
-        let rand = Math.floor(Math.random() * 3)+1;
+        let rand = Math.floor(Math.random() * 5)+1;
         let action = Math.floor(Math.random() * 9)+1;
 
         switch (rand) {
           case 1: //attack
+          case 2: //attack
             this.emitHealth(this.health - action);
           break;
-          case 2: //heal
+          case 3: //heal
             this.healEvent(this.enemyHealth, 2, action);
           break;
-          case 3: //defense
+          case 4: //defense
+          case 5: //defense
             if(myDamage !== 0) {
               this.emitEnemyHeath(this.enemyHealth-1);
             }
@@ -77,13 +79,13 @@ export default {
     //type 1 = ryu | 2 = sagat
     healEvent(hp, type, val) {
       if(type == 2) {
-        if(hp > 100) {
+        if(hp > 99) {
           this.emitEnemyHeath(100);
         } else {
           this.emitEnemyHeath(this.enemyHealth + val);
         }
       } else if(type == 1) {
-        if(hp > 100) {
+        if(hp > 99) {
           this.emitHealth(100);
         } else {
           this.emitHealth(this.health + val);

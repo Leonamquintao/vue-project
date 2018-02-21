@@ -21,7 +21,7 @@
 <script>
 export default {
   name: "counter-component",
-  data () {
+  data() {
     return {
       counter: 0,
       seccounter: 0,
