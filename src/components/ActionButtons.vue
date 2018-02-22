@@ -56,14 +56,14 @@ export default {
 
         switch (rand) {
           case 1: //attack
-          case 2: //attack
+          case 2:
             this.emitHealth(this.health - action);
           break;
           case 3: //heal
             this.healEvent(this.enemyHealth, 2, action);
           break;
           case 4: //defense
-          case 5: //defense
+          case 5:
             if(myDamage !== 0) {
               this.emitEnemyHeath(this.enemyHealth-1);
             }
@@ -75,19 +75,24 @@ export default {
       });
     },
 
-    //type 1 = ryu | 2 = sagat
+    /**
+     * Function used by all characters for healing.
+     * @param  { integer } hp   the health or enemy health
+     * @param  { integer } type which character will use the function (1 = ryu, 2 = sagat)
+     * @param  { integer } val  value of the to heal.
+     */
     healEvent(hp, type, val) {
-      if(type == 2) {
-        if(hp > 99) {
-          this.emitEnemyHeath(100);
-        } else {
-          this.emitEnemyHeath(this.enemyHealth + val);
-        }
-      } else if(type == 1) {
+      if(type == 1) {
         if(hp > 99) {
           this.emitHealth(100);
         } else {
           this.emitHealth(this.health + val);
+        }
+      } else if(type == 2) {
+        if(hp > 99) {
+          this.emitEnemyHeath(100);
+        } else {
+          this.emitEnemyHeath(this.enemyHealth + val);
         }
       }
     }
