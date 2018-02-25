@@ -34,10 +34,6 @@
       <button class="play" @click="playAgain()" v-if="end">Play Again</button>
     </div>
 
-    <template v-if="!end">
-      <fight-log></fight-log>
-    </template>
-
   </div>
 </template>
 
@@ -45,14 +41,12 @@
 
   import HealthBar from './HealthBar';
   import ActionButtons from './ActionButtons';
-  import FightLog from './FightLog';
 
   export default {
     name: 'home',
     components: {
       HealthBar,
       ActionButtons,
-      FightLog,
     },
 
     data () {
@@ -60,6 +54,7 @@
         health: 100,
         enemyHealth: 100,
         end: false,
+        turns: []
       }
     },
 
@@ -76,6 +71,10 @@
 
       emitEnemyHeath(ehp) {
         this.enemyHealth = ehp;
+      },
+
+      emitTurnsEvent(trn) {
+        this.turns = trn
       },
 
     },
