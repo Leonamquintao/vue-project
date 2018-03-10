@@ -52,7 +52,7 @@ export default {
       return new Promise((resolve, reject) => {
 
         let rand = Math.floor(Math.random() * 5)+1;
-        let action = Math.floor(Math.random() * 9)+1;
+        let action = Math.floor(Math.random() * 8)+1;
 
         switch (rand) {
           case 1: //attack

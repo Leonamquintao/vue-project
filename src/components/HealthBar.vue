@@ -14,7 +14,11 @@
 
 export default {
   name: "health-bar",
-  props: ['health'],
+  props: {
+    health: Number,
+    required: true,
+    default: 100
+  },
   data() {
     return{
       danger: false,
